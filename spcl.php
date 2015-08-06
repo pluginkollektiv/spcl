@@ -35,22 +35,22 @@ defined('ABSPATH') OR exit;
 
 /* Backend only */
 if ( ! is_admin() ) {
-    return;
+	return;
 }
 
 /* Include core */
 require_once(
-    sprintf(
-        '%s/inc/spcl.class.php',
-        dirname(__FILE__)
-    )
+	sprintf(
+		'%s/inc/spcl.class.php',
+		dirname(__FILE__)
+	)
 );
 
 /* Fire */
 add_action(
-    'admin_init',
-    array(
-        'SPCL',
-        'init'
-    )
+	'admin_init',
+	array(
+		'SPCL',
+		'init'
+	)
 );
