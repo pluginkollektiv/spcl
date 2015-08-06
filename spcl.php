@@ -2,11 +2,12 @@
 /*
 Plugin Name: Save Post. Check Links.
 Description: Bei der Speicherung der Artikel prüft das Plugin die im Text vorhandenen Verlinkungen auf ihre Erreichbarkeit bzw. Gültigkeit.
-Author: Sergej M&uuml;ller
-Author URI: http://wpcoder.de
-Plugin URI: https://wordpress.org/plugins/spcl/
-License: GPLv2 or later
-Version: 0.7.1
+Author:      pluginkollektiv
+Author URI:  http://pluginkollektiv.org
+Plugin URI:  https://wordpress.org/plugins/spcl/
+License:     GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Version:     0.7.1
 */
 
 /*
