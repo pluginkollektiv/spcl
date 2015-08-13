@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Save Post. Check Links.
-Description: Bei der Speicherung der Artikel prüft das Plugin die im Text vorhandenen Verlinkungen auf ihre Erreichbarkeit bzw. Gültigkeit.
+Description: Verifies URLs of links in your content are reachable when saving a post in WordPress.
 Author:      pluginkollektiv
 Author URI:  http://pluginkollektiv.org
 Plugin URI:  https://wordpress.org/plugins/spcl/
