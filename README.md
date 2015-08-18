@@ -78,6 +78,10 @@ There is none, no configuration necessary.
 
 
 ## Changelog ##
+### 0.7.2 ###
+* updated and translated README
+* updated [plugin authors](https://gist.github.com/glueckpress/f058c0ab973d45a72720)
+
 ### 0.7.1 ###
 * Keine Überprüfung relativer Links (z.B. bei Bildpfaden)
 * Hook [spcl_acceptable_protocols](https://gist.github.com/sergejmueller/b515138b23b39ebfd1e5) hinzugefügt
