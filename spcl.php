@@ -1,12 +1,13 @@
 <?php
 /*
 Plugin Name: Save Post. Check Links.
-Description: Bei der Speicherung der Artikel prüft das Plugin die im Text vorhandenen Verlinkungen auf ihre Erreichbarkeit bzw. Gültigkeit.
-Author: Sergej M&uuml;ller
-Author URI: http://wpcoder.de
-Plugin URI: https://wordpress.org/plugins/spcl/
-License: GPLv2 or later
-Version: 0.7.1
+Description: Verifies URLs of links in your content are reachable when saving a post in WordPress.
+Author:      pluginkollektiv
+Author URI:  http://pluginkollektiv.org
+Plugin URI:  https://wordpress.org/plugins/spcl/
+License:     GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Version:     0.7.2
 */
 
 /*
@@ -34,22 +35,22 @@ defined('ABSPATH') OR exit;
 
 /* Backend only */
 if ( ! is_admin() ) {
-    return;
+	return;
 }
 
 /* Include core */
 require_once(
-    sprintf(
-        '%s/inc/spcl.class.php',
-        dirname(__FILE__)
-    )
+	sprintf(
+		'%s/inc/spcl.class.php',
+		dirname(__FILE__)
+	)
 );
 
 /* Fire */
 add_action(
-    'admin_init',
-    array(
-        'SPCL',
-        'init'
-    )
+	'admin_init',
+	array(
+		'SPCL',
+		'init'
+	)
 );
