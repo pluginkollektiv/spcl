@@ -3,7 +3,7 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML
 * Tags:              check, links, broken, seo, link checker
 * Requires at least: 3.7
-* Tested up to:      4.3
+* Tested up to:      4.6
 * Stable tag:        trunk
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,22 +21,24 @@ When a post is saved or published, this plugin will
 
 No more publishing of links or images broken by typos or incompletely copy-pasted URLs!
 
-
 ### Deutsch ###
 *Save Post. Check Links.* übernimmt die Prüfung interner und externer Verlinkungen innerhalb der WordPress-Artikel. Das Plugin erkennt somit Tipp- sowie Copy&Paste-Fehler in gesetzten Links und Bildpfaden. Der Vorteil: Defekte Website-Verknüpfungen und Bild-Referenzierungen werden noch vor der Veröffentlichung der Beiträge erkannt und vom Autor korrigiert.
 
 Beim Speichern bzw. Publizieren der Artikel sucht sich die WordPress-Erweiterung alle URLs aus dem Inhalt heraus und pingt sie zwecks Richtigkeit/Erreichbarkeit an. Fehlerhafte Links samt Ursache (Fehlercode) listet das Plugin zur Kontrolle bzw. zum Nachbessern auf.
 
-
-### Requirements ###
-* PHP 5.2.4+
-* WordPress 3.7+
-
-
 ### Memory Usage ###
 * Back-end: ~ 0.04 MB
 * Front-end: ~ 0.01 MB
 
+### Support ###
+* Community support via the [support forums on wordpress.org](https://wordpress.org/support/plugin/spcl)
+* We don’t handle support via e-mail, Twitter, GitHub issues etc.
+
+### Contribute ###
+* Active development of this plugin is handled [on GitHub](https://github.com/pluginkollektiv/spcl).
+* Pull requests for documented bugs are highly appreciated.
+* If you think you’ve found a bug (e.g. you’re experiencing unexpected behavior), please post at the [support forums](https://wordpress.org/support/plugin/spcl) first.
+* If you want to help us translate this plugin you can do so [on WordPress Translate](https://translate.wordpress.org/projects/wp-plugins/spcl).
 
 ### Credits ###
 * Author: [Sergej Müller](https://sergejmueller.github.io/)
@@ -46,10 +48,13 @@ Beim Speichern bzw. Publizieren der Artikel sucht sich die WordPress-Erweiterung
 ## Installation ##
 * If you don’t know how to install a plugin for WordPress, [here’s how](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
+### Requirements ###
+* PHP 5.2.4 or greater
+* WordPress 3.7 or greater
 
 ## Frequently Asked Questions ##
 ### Will this plugin automatically correct link URLs on my website? ###
-No, but it will automatically _find_ any broken URLs in a post and list them for you, so you can review and correct them.
+No, but it will automatically *find* any broken URLs in a post and list them for you, so you can review and correct them.
 
 ### Will it find broken image URLs, too? ###
 Yes, the plugin will ping every URL in your post’s content, no matter if it’s in a **link**, an **image** or even in a **shortcode**.
@@ -83,46 +88,46 @@ There is none, no configuration necessary.
 * updated [plugin authors](https://gist.github.com/glueckpress/f058c0ab973d45a72720)
 
 ### 0.7.1 ###
-* Keine Überprüfung relativer Links (z.B. bei Bildpfaden)
+* No verification of relative links (e.g. image paths)
 * Hook [spcl_acceptable_protocols](https://gist.github.com/sergejmueller/b515138b23b39ebfd1e5) hinzugefügt
 
 ### 0.7.0 ###
-* Umstrukturierung zwecks Reduzierung des Speicherverbrauchs
+* Restructuring in order to reduce memory consumption
 
 ### 0.6.2 ###
-* Zusatzprüfung für extrahierte Links
+* Supplementary test for extracted links
 
 ### 0.6.1 ###
-* Werte zu Plugin-Speichernutzung hinzugefügt
-* `get_current_user_id` statt `wp_get_current_user()->ID`
+* Added values to plug-in memory usage
+* `get_current_user_id` instead of `wp_get_current_user()->ID`
 
 ### 0.6.0 ###
-* Support zu WordPress 3.9
-* Überarbeitung des Sourcecodes
+* WordPress 3.9 support
+* Revision of the source code
 
 ### 0.5.1 ###
-* Tausch `esc_url` gegen `esc_url_raw`
+* Exchange `esc_url` against `esc_url_raw`
 
 ### 0.5 ###
 * Xmas Edition
 
 ### 0.4.1 ###
-* Hotfix für URLs mit Hash-Fragmenten
+* Hotfix for URLs with hash fragments
 
 ### 0.4 ###
-* Live auf wordpress.org
+* Live on wordpress.org
 
 ### 0.3 ###
-* Ausgabe des Fehlers bzw. Status Codes
-* Quelltext-Überarbeitung
+* Output of the error or status codes
+* Source code revision
 
 ### 0.2 ###
-* Umstellung der Action auf `admin_notices`
-* Zusätzliche Prüfung des Status Codes 405
+* Conversion of action to `admin_notices`
+* Additional check of status code 405
 
 ### 0.1 ###
-* Plugin-Veröffentlichung
+* Plugin Release
 
 
 ## Screenshots ##
-1. Ausgabe fehlerhafter Links
+1. Output of faulty links
