@@ -1,9 +1,9 @@
 # Save Post. Check Links. #
 * Contributors:      pluginkollektiv
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML
-* Tags:              check, links, broken, seo, link checker
+* Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
-* Tested up to:      4.6
+* Tested up to:      4.7
 * Stable tag:        trunk
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,15 +20,6 @@ When a post is saved or published, this plugin will
 * detect any broken or unreachable URLs and list them for review and correction.
 
 No more publishing of links or images broken by typos or incompletely copy-pasted URLs!
-
-### Deutsch ###
-*Save Post. Check Links.* übernimmt die Prüfung interner und externer Verlinkungen innerhalb der WordPress-Artikel. Das Plugin erkennt somit Tipp- sowie Copy&Paste-Fehler in gesetzten Links und Bildpfaden. Der Vorteil: Defekte Website-Verknüpfungen und Bild-Referenzierungen werden noch vor der Veröffentlichung der Beiträge erkannt und vom Autor korrigiert.
-
-Beim Speichern bzw. Publizieren der Artikel sucht sich die WordPress-Erweiterung alle URLs aus dem Inhalt heraus und pingt sie zwecks Richtigkeit/Erreichbarkeit an. Fehlerhafte Links samt Ursache (Fehlercode) listet das Plugin zur Kontrolle bzw. zum Nachbessern auf.
-
-### Memory Usage ###
-* Back-end: ~ 0.04 MB
-* Front-end: ~ 0.01 MB
 
 ### Support ###
 * Community support via the [support forums on wordpress.org](https://wordpress.org/support/plugin/spcl)
@@ -89,7 +80,7 @@ There is none, no configuration necessary.
 
 ### 0.7.1 ###
 * No verification of relative links (e.g. image paths)
-* Hook [spcl_acceptable_protocols](https://gist.github.com/sergejmueller/b515138b23b39ebfd1e5) hinzugefügt
+* Hook [spcl_acceptable_protocols](https://gist.github.com/sergejmueller/b515138b23b39ebfd1e5) added
 
 ### 0.7.0 ###
 * Restructuring in order to reduce memory consumption
