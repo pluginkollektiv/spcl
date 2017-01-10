@@ -210,7 +210,7 @@ final class SPCL {
 		/* Loop the cache items */
 		foreach ( $items as $item ) {
 			echo sprintf(
-				'<p><a href="%1$s" target="_blank">%1$s</a> (%2$s)</p>',
+				'<p><a href="%1$s" target="_blank" rel="noopener noreferrer">%1$s</a> (%2$s)</p>',
 				esc_url($item['url']),
 				esc_html($item['error'])
 
