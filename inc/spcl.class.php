@@ -2,7 +2,7 @@
 
 
 /* Quit */
-defined('ABSPATH') OR exit;
+defined( 'ABSPATH' ) || exit;
 
 
 /**
@@ -10,7 +10,6 @@ defined('ABSPATH') OR exit;
  *
  * @since 0.7.0
  */
-
 final class SPCL {
 
 
@@ -20,16 +19,14 @@ final class SPCL {
 	 * @since   0.1
 	 * @change  0.7.0
 	 */
-
-	public static function init()
-	{
+	public static function init() {
 		/* Skip DOING_X */
-		if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) OR (defined('DOING_CRON') && DOING_CRON) OR (defined('DOING_AJAX') && DOING_AJAX) OR (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) {
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_CRON' ) && DOING_CRON) || ( defined( 'DOING_AJAX' ) && DOING_AJAX) || ( defined('XMLRPC_REQUEST' ) && XMLRPC_REQUEST) ) {
 			return;
 		}
 
 		/* Restrict access */
-		if ( ! current_user_can('edit_posts') ) {
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 
@@ -38,14 +35,14 @@ final class SPCL {
 			'save_post',
 			array(
 				__CLASS__,
-				'validate_links'
+				'validate_links',
 			)
 		);
 		add_action(
 			'load-post.php',
 			array(
 				__CLASS__,
-				'admin_notices'
+				'admin_notices',
 			)
 		);
 	}
@@ -57,14 +54,12 @@ final class SPCL {
 	 * @since   0.7.0
 	 * @change  0.7.0
 	 */
-
-	public static function admin_notices()
-	{
+	public static function admin_notices() {
 		add_action(
 			'admin_notices',
 			array(
 				__CLASS__,
-				'display_errors'
+				'display_errors',
 			)
 		);
 	}
@@ -80,24 +75,22 @@ final class SPCL {
 	 *
 	 * @param   intval  $id  Post ID
 	 */
-
-	public static function validate_links($id)
-	{
+	public static function validate_links( $id ) {
 		/* No PostID? */
-		if ( empty($id) ) {
+		if ( empty( $id ) ) {
 			return;
 		}
 
 		/* Get post data */
-		$post = get_post($id);
+		$post = get_post( $id );
 
 		/* Post incomplete? */
-		if ( empty($post) OR empty($post->post_content) ) {
+		if ( empty( $post ) || empty( $post->post_content ) ) {
 			return;
 		}
 
 		/* Extract urls */
-		if ( ! $urls = wp_extract_urls($post->post_content) ) {
+		if ( ! $urls = wp_extract_urls( $post->post_content ) ) {
 			return;
 		}
 
@@ -107,22 +100,22 @@ final class SPCL {
 		/* Loop the urls */
 		foreach ( $urls as $url ) {
 			/* Acceptable protocols filter */
-			$acceptable_protocols = (array)apply_filters(
+			$acceptable_protocols = (array) apply_filters(
 				'spcl_acceptable_protocols',
 				array(
 					'http',
-					'https'
+					'https',
 				)
 			);
 
 			/* Scheme check */
-			if ( ! in_array( parse_url($url, PHP_URL_SCHEME), $acceptable_protocols ) ) {
+			if ( ! in_array( parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols ) ) {
 				continue;
 			}
 
 			/* Fragment check */
-			if ( $hash = parse_url($url, PHP_URL_FRAGMENT) ) {
-				$url = str_replace('#' .$hash, '', $url);
+			if ( $hash = parse_url( $url, PHP_URL_FRAGMENT ) ) {
+				$url = str_replace( '#' .$hash, '', $url );
 			}
 
 			/* URL sanitization */
@@ -132,24 +125,24 @@ final class SPCL {
 			);
 
 			/* Skip URL */
-			if ( empty($url) ) {
+			if ( empty( $url ) ) {
 				continue;
 			}
 
 			/* Ping */
-			$response = wp_safe_remote_head($url);
+			$response = wp_safe_remote_head( $url );
 
 			/* Error? */
 			if ( is_wp_error($response) ) {
 				$found[] = array(
 					'url'   => $url,
-					'error' => $response->get_error_message()
+					'error' => $response->get_error_message(),
 				);
 
-			/* Respronse code */
+			/* Response code */
 			} else {
 				/* Status code */
-				$code = (int)wp_remote_retrieve_response_code($response);
+				$code = (int)wp_remote_retrieve_response_code( $response );
 
 				/* Handle error codes */
 				if ( $code >= 400 && $code != 405 ) {
@@ -165,7 +158,7 @@ final class SPCL {
 		}
 
 		/* No items? */
-		if ( empty($found) ) {
+		if ( empty( $found ) ) {
 			return;
 		}
 
@@ -185,11 +178,9 @@ final class SPCL {
 	 * @change  0.7.0
 	 *
 	 */
-
-	public static function display_errors()
-	{
+	public static function display_errors() {
 		/* Check for error message */
-		if ( empty($_GET['message']) ) {
+		if ( empty( $_GET['message'] ) ) {
 			return;
 		}
 
@@ -197,12 +188,12 @@ final class SPCL {
 		$hash = self::_transient_hash();
 
 		/* Get errors from cache */
-		if ( (! $items = get_transient($hash)) OR (! is_array($items)) ) {
+		if ( ( ! $items = get_transient( $hash ) ) OR ( ! is_array( $items ) ) ) {
 			return;
 		}
 
 		/* Kill current cache */
-		delete_transient($hash);
+		delete_transient( $hash );
 
 		/* Output start */
 		echo '<div class="notice notice-error is-dismissible">';
@@ -211,9 +202,8 @@ final class SPCL {
 		foreach ( $items as $item ) {
 			echo sprintf(
 				'<p><a href="%1$s" target="_blank" rel="noopener noreferrer">%1$s</a> (%2$s)</p>',
-				esc_url($item['url']),
-				esc_html($item['error'])
-
+				esc_url( $item['url'] ),
+				esc_html( $item['error'] )
 			);
 		}
 
@@ -230,7 +220,6 @@ final class SPCL {
 	 *
 	 * @return  string  Transient hash
 	 */
-
 	private static function _transient_hash() {
 		return md5(
 			sprintf(

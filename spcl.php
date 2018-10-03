@@ -30,7 +30,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 
 /* Quit */
-defined('ABSPATH') OR exit;
+defined( 'ABSPATH' ) || exit;
 
 
 /* Backend only */
@@ -42,7 +42,7 @@ if ( ! is_admin() ) {
 require_once(
 	sprintf(
 		'%s/inc/spcl.class.php',
-		dirname(__FILE__)
+		dirname( __FILE__ )
 	)
 );
 
@@ -51,6 +51,6 @@ add_action(
 	'admin_init',
 	array(
 		'SPCL',
-		'init'
+		'init',
 	)
 );
