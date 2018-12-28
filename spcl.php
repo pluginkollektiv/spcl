@@ -1,14 +1,16 @@
 <?php
-/*
-Plugin Name: Save Post. Check Links.
-Description: Verifies URLs of links in your content are reachable when saving a post in WordPress.
-Author:      pluginkollektiv
-Author URI:  http://pluginkollektiv.org
-Plugin URI:  https://wordpress.org/plugins/spcl/
-License:     GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Version:     0.7.2
-*/
+/**
+ * Plugin Name: Save Post. Check Links.
+ * Description: Verifies URLs of links in your content are reachable when saving a post in WordPress.
+ * Author:      pluginkollektiv
+ * Author URI:  http://pluginkollektiv.org
+ * Plugin URI:  https://wordpress.org/plugins/spcl/
+ * License:     GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Version:     0.7.3
+ *
+ * @package spcl
+ */
 
 /*
 Copyright (C)  2011-2014 Sergej Müller
@@ -41,7 +43,7 @@ if ( ! is_admin() ) {
 /* Include core */
 require_once(
 	sprintf(
-		'%s/inc/spcl.class.php',
+		'%s/inc/class-spcl.php',
 		dirname( __FILE__ )
 	)
 );

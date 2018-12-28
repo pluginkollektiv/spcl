@@ -3,8 +3,9 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML
 * Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
-* Tested up to:      4.7
-* Stable tag:        trunk
+* Tested up to:      4.9
+* Requires PHP:      5.2
+* Stable tag:        0.7.3
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +75,10 @@ There is none, no configuration necessary.
 
 
 ## Changelog ##
+
+### 0.7.3 ###
+* Improve code style
+
 ### 0.7.2 ###
 * updated and translated README
 * updated [plugin authors](https://gist.github.com/glueckpress/f058c0ab973d45a72720)

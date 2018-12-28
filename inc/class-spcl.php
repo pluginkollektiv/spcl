@@ -1,9 +1,12 @@
 <?php
-
+/**
+ * Class SPCL
+ *
+ * @package spcl
+ */
 
 /* Quit */
 defined( 'ABSPATH' ) || exit;
-
 
 /**
  * SPCL
@@ -21,7 +24,7 @@ final class SPCL {
 	 */
 	public static function init() {
 		/* Skip DOING_X */
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_CRON' ) && DOING_CRON) || ( defined( 'DOING_AJAX' ) && DOING_AJAX) || ( defined('XMLRPC_REQUEST' ) && XMLRPC_REQUEST) ) {
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
 			return;
 		}
 
@@ -73,7 +76,7 @@ final class SPCL {
 	 *
 	 * @hook    array  spcl_acceptable_protocols
 	 *
-	 * @param   intval  $id  Post ID
+	 * @param   int $id  Post ID.
 	 */
 	public static function validate_links( $id ) {
 		/* No PostID? */
@@ -90,7 +93,8 @@ final class SPCL {
 		}
 
 		/* Extract urls */
-		if ( ! $urls = wp_extract_urls( $post->post_content ) ) {
+		$urls = wp_extract_urls( $post->post_content );
+		if ( ! $urls ) {
 			return;
 		}
 
@@ -114,8 +118,9 @@ final class SPCL {
 			}
 
 			/* Fragment check */
-			if ( $hash = parse_url( $url, PHP_URL_FRAGMENT ) ) {
-				$url = str_replace( '#' .$hash, '', $url );
+			$hash = parse_url( $url, PHP_URL_FRAGMENT );
+			if ( $hash ) {
+				$url = str_replace( '#' . $hash, '', $url );
 			}
 
 			/* URL sanitization */
@@ -133,25 +138,25 @@ final class SPCL {
 			$response = wp_safe_remote_head( $url );
 
 			/* Error? */
-			if ( is_wp_error($response) ) {
+			if ( is_wp_error( $response ) ) {
 				$found[] = array(
 					'url'   => $url,
 					'error' => $response->get_error_message(),
 				);
 
-			/* Response code */
+				/* Response code */
 			} else {
 				/* Status code */
-				$code = (int)wp_remote_retrieve_response_code( $response );
+				$code = (int) wp_remote_retrieve_response_code( $response );
 
 				/* Handle error codes */
-				if ( $code >= 400 && $code != 405 ) {
+				if ( $code >= 400 && 405 != $code ) {
 					$found[] = array(
 						'url'   => $url,
 						'error' => sprintf(
 							'Status Code %d',
 							$code
-						)
+						),
 					);
 				}
 			}
@@ -166,7 +171,7 @@ final class SPCL {
 		set_transient(
 			self::_transient_hash(),
 			$found,
-			60*30
+			60 * 30
 		);
 	}
 
@@ -176,7 +181,6 @@ final class SPCL {
 	 *
 	 * @since   0.1.0
 	 * @change  0.7.0
-	 *
 	 */
 	public static function display_errors() {
 		/* Check for error message */
@@ -188,7 +192,8 @@ final class SPCL {
 		$hash = self::_transient_hash();
 
 		/* Get errors from cache */
-		if ( ( ! $items = get_transient( $hash ) ) OR ( ! is_array( $items ) ) ) {
+		$items = get_transient( $hash );
+		if ( ! $items || ! is_array( $items ) ) {
 			return;
 		}
 

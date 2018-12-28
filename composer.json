@@ -1,0 +1,23 @@
+{
+  "name": "pluginkollektiv/spcl",
+  "description": "Save Post. Check Links.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0",
+  "require": {
+    "php": "^5.2|^7"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "phpcompatibility/php-compatibility": "^9.1",
+    "squizlabs/php_codesniffer": "^3.4",
+    "wp-coding-standards/wpcs": "^1.2"
+  },
+  "scripts": {
+    "cs": [
+      "phpcs --standard=phpcs.xml -s"
+    ],
+    "csfix": [
+      "phpcbf --standard=phpcs.xml"
+    ]
+  }
+}
