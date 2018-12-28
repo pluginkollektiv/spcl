@@ -30,17 +30,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-/* Quit */
 defined( 'ABSPATH' ) || exit;
 
-
-/* Backend only */
+// Backend only.
 if ( ! is_admin() ) {
 	return;
 }
 
-/* Include core */
+// Include class.
 require_once(
 	sprintf(
 		'%s/inc/class-spcl.php',
@@ -48,7 +45,7 @@ require_once(
 	)
 );
 
-/* Fire */
+// Init.
 add_action(
 	'admin_init',
 	array(
