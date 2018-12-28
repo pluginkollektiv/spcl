@@ -3,7 +3,7 @@
  * Plugin Name: Save Post. Check Links.
  * Description: Verifies URLs of links in your content are reachable when saving a post in WordPress.
  * Author:      pluginkollektiv
- * Author URI:  http://pluginkollektiv.org
+ * Author URI:  https://pluginkollektiv.org
  * Plugin URI:  https://wordpress.org/plugins/spcl/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
