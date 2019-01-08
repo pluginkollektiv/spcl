@@ -1,9 +1,11 @@
 <?php
+/**
+ * Class SPCL
+ *
+ * @package spcl
+ */
 
-
-/* Quit */
 defined( 'ABSPATH' ) || exit;
-
 
 /**
  * SPCL
@@ -12,25 +14,27 @@ defined( 'ABSPATH' ) || exit;
  */
 final class SPCL {
 
-
 	/**
-	 * Initiator der Klasse
+	 * Initialize the class.
 	 *
 	 * @since   0.1
 	 * @change  0.7.0
 	 */
 	public static function init() {
-		/* Skip DOING_X */
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_CRON' ) && DOING_CRON) || ( defined( 'DOING_AJAX' ) && DOING_AJAX) || ( defined('XMLRPC_REQUEST' ) && XMLRPC_REQUEST) ) {
+		// Skip DOING_X.
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			 || ( defined( 'DOING_CRON' ) && DOING_CRON )
+			 || ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			 || ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
 			return;
 		}
 
-		/* Restrict access */
+		// Restrict access.
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 
-		/* Actions */
+		// Add actions.
 		add_action(
 			'save_post',
 			array(
@@ -46,7 +50,6 @@ final class SPCL {
 			)
 		);
 	}
-
 
 	/**
 	 * Callback for admin_notices
@@ -64,150 +67,154 @@ final class SPCL {
 		);
 	}
 
-
 	/**
 	 * Validate post links
 	 *
 	 * @since   0.1.0
-	 * @change  0.7.1
+	 * @change  0.7.3
 	 *
 	 * @hook    array  spcl_acceptable_protocols
 	 *
-	 * @param   intval  $id  Post ID
+	 * @param   int $id  Post ID.
 	 */
 	public static function validate_links( $id ) {
-		/* No PostID? */
+		// Skip check if no Post ID available.
 		if ( empty( $id ) ) {
 			return;
 		}
 
-		/* Get post data */
+		// Skip check if post is empty.
 		$post = get_post( $id );
-
-		/* Post incomplete? */
 		if ( empty( $post ) || empty( $post->post_content ) ) {
 			return;
 		}
 
-		/* Extract urls */
-		if ( ! $urls = wp_extract_urls( $post->post_content ) ) {
+		// Extract URLs.
+		$urls = wp_extract_urls( $post->post_content );
+		if ( ! $urls ) {
 			return;
 		}
 
-		/* Init */
+		// Apply filter for acceptable protocols.
+		$acceptable_protocols = (array) apply_filters(
+			'spcl_acceptable_protocols',
+			array(
+				'http',
+				'https',
+			)
+		);
+
 		$found = array();
-
-		/* Loop the urls */
 		foreach ( $urls as $url ) {
-			/* Acceptable protocols filter */
-			$acceptable_protocols = (array) apply_filters(
-				'spcl_acceptable_protocols',
-				array(
-					'http',
-					'https',
-				)
-			);
-
-			/* Scheme check */
+			// Skip URL if depending on acceptable protocols check.
 			if ( ! in_array( parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols ) ) {
 				continue;
 			}
 
-			/* Fragment check */
-			if ( $hash = parse_url( $url, PHP_URL_FRAGMENT ) ) {
-				$url = str_replace( '#' .$hash, '', $url );
+			// Fragment check.
+			$hash = parse_url( $url, PHP_URL_FRAGMENT );
+			if ( $hash ) {
+				$url = str_replace( '#' . $hash, '', $url );
 			}
 
-			/* URL sanitization */
+			// URL sanitization.
 			$url = esc_url_raw(
 				$url,
 				$acceptable_protocols
 			);
 
-			/* Skip URL */
+			// Skip empty URL.
 			if ( empty( $url ) ) {
 				continue;
 			}
 
 			/* Ping */
 			$response = wp_safe_remote_head( $url );
-
-			/* Error? */
-			if ( is_wp_error($response) ) {
+			if ( is_wp_error( $response ) ) {
+				// Response code.
 				$found[] = array(
 					'url'   => $url,
 					'error' => $response->get_error_message(),
 				);
-
-			/* Response code */
 			} else {
-				/* Status code */
-				$code = (int)wp_remote_retrieve_response_code( $response );
-
-				/* Handle error codes */
-				if ( $code >= 400 && $code != 405 ) {
+				// Status code.
+				$code = (int) wp_remote_retrieve_response_code( $response );
+				if ( $code >= 400 && 405 != $code ) {
 					$found[] = array(
 						'url'   => $url,
-						'error' => sprintf(
-							'Status Code %d',
-							$code
-						)
+						'code' => $code,
 					);
 				}
 			}
 		}
 
-		/* No items? */
+		// No items?
 		if ( empty( $found ) ) {
 			return;
 		}
 
-		/* Cache the result */
+		// Cache the result.
 		set_transient(
 			self::_transient_hash(),
 			$found,
-			60*30
+			60 * 30
 		);
 	}
 
 
 	/**
-	 * Output of validation errors
+	 * Output of validation errors.
 	 *
 	 * @since   0.1.0
-	 * @change  0.7.0
-	 *
+	 * @change  0.7.3
 	 */
 	public static function display_errors() {
-		/* Check for error message */
+		// Check for error message.
 		if ( empty( $_GET['message'] ) ) {
 			return;
 		}
 
-		/* Cache hash */
+		// Cache hash.
 		$hash = self::_transient_hash();
 
 		/* Get errors from cache */
-		if ( ( ! $items = get_transient( $hash ) ) OR ( ! is_array( $items ) ) ) {
+		$items = get_transient( $hash );
+		if ( ! $items || ! is_array( $items ) ) {
 			return;
 		}
 
-		/* Kill current cache */
+		// Kill current cache.
 		delete_transient( $hash );
 
-		/* Output start */
+		// Output errors.
 		echo '<div class="notice notice-error is-dismissible">';
-
-		/* Loop the cache items */
 		foreach ( $items as $item ) {
-			echo sprintf(
-				'<p><a href="%1$s" target="_blank" rel="noopener noreferrer">%1$s</a> (%2$s)</p>',
+			$link = sprintf(
+				'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
 				esc_url( $item['url'] ),
-				esc_html( $item['error'] )
+				esc_url( $item['url'] )
 			);
-		}
 
-		/* Output end */
+			if ( isset( $item['code'] ) ) {
+				$error_text = sprintf(
+					/* translators: 1: URL 2: HTTP status code */
+					esc_html__( 'Check for URL %1$s failed with status code %2$s.', 'spcl' ),
+					$link,
+					esc_html( $item['code'] )
+				);
+			} else {
+				$error_text = sprintf(
+					/* translators: 1: URL 2: error message */
+					esc_html__( 'Check for URL %1$s failed with error: %2$s.', 'spcl' ),
+					$link,
+					esc_html( $item['error'] )
+				);
+			}
+
+			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<p>' . $error_text . '</p>'; // Everything is escaped properly already.
+			// phpcs:enable
+		}
 		echo '</div>';
 	}
 
