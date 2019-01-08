@@ -1,6 +1,6 @@
 # Save Post. Check Links. #
 * Contributors:      pluginkollektiv
-* Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML
+* Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
 * Tested up to:      4.9
