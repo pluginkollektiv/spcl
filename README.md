@@ -47,8 +47,6 @@ Yes, the plugin will ping every URL in your post’s content, no matter if it’
 ### Will the plugin prevent a post with broken links in it from being published? ###
 No, it will just list any broken URLs for you, but it will do so already when you save a draft. Most people save a draft multiple times before they publish it, so there’s a fair chance you’ll notice any broken links before actually publishing.
 
-If you want to **to avoid accidental publishing**, try the free [Publish Confirm](https://wordpress.org/plugins/publish-confirm/) plugin. It will add an extra confirmation dialogue for the publish button.
-
 ### Does it matter whether a URL is http or https? ###
 By default the plugin will try to ping both, http and https URLs. If needed, you can change accepted protocols via hook. For example, in order to check only URLs with SSL:
 
