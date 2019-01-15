@@ -5,7 +5,7 @@
 * Requires at least: 3.7
 * Tested up to:      4.9
 * Requires PHP:      5.2
-* Stable tag:        0.7.3
+* Stable tag:        0.7.4
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,8 +65,12 @@ There is none, no configuration necessary.
 
 ## Changelog ##
 
+### 0.7.4 ###
+* Bugfix for translations via wordpress.org
+
 ### 0.7.3 ###
 * Improve code style
+* Improve error messages
 
 ### 0.7.2 ###
 * updated and translated README
