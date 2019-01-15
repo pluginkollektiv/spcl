@@ -34,6 +34,9 @@ final class SPCL {
 			return;
 		}
 
+		// Load text domain.
+		load_plugin_textdomain( 'spcl' );
+
 		// Add actions.
 		add_action(
 			'save_post',
