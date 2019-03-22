@@ -5,7 +5,7 @@
 * Requires at least: 3.7
 * Tested up to:      4.9
 * Requires PHP:      5.2
-* Stable tag:        0.7.4
+* Stable tag:        0.7.5
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ There is none, no configuration necessary.
 
 
 ## Changelog ##
+
+### 0.7.5 ###
+* Use a more secure hashing function
 
 ### 0.7.4 ###
 * Bugfix for translations via wordpress.org
