@@ -221,7 +221,6 @@ final class SPCL {
 		echo '</div>';
 	}
 
-
 	/**
 	 * Create transient hash based on post and user IDs
 	 *
@@ -231,12 +230,28 @@ final class SPCL {
 	 * @return  string  Transient hash
 	 */
 	private static function _transient_hash() {
-		return md5(
+		return self::hash(
 			sprintf(
 				'SPCL_%s_%s',
 				get_the_ID(),
 				get_current_user_id()
 			)
 		);
+	}
+
+	/**
+	 * Hashes a value with the best available hashing function.
+	 *
+	 * @param string $value The value to hash.
+	 *
+	 * @return string A hash of the value.
+	 */
+	private static function hash( $value ) {
+		// If ext/hash is not present, use sha1() instead.
+		if ( function_exists( 'hash' ) ) {
+			return hash( 'sha256', $value );
+		} else {
+			return sha1( $value );
+		}
 	}
 }
