@@ -53,7 +53,7 @@
 						}
 					}
 				}
-				xhr.send( '_nonce=' + postId + '&action=spcl_link_check&check_post=' + postId );
+				xhr.send( '_nonce=' + spclScriptData.nonce + '&action=spcl_link_check&check_post=' + postId );
 			}
 		} );
 	} );

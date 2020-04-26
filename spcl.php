@@ -33,6 +33,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'SPCL_VERSION', '0.8.0' );
+
 // Backend only.
 if ( ! is_admin() ) {
 	return;

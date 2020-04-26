@@ -86,13 +86,23 @@ final class SPCL {
 		wp_enqueue_script(
 			'spcl-block-editor-script',
 			plugins_url( 'assets/js/notice.js', dirname( __FILE__ ) ),
-			array( 'wp-core-data' )
+			array( 'wp-core-data' ),
+			SPCL_VERSION
+		);
+
+		// Add nonce for AJAX request.
+		wp_localize_script(
+			'spcl-block-editor-script',
+			'spclScriptData',
+			array(
+				'nonce' => wp_create_nonce( 'spcl-block-editor-nonce' ),
+			)
 		);
 	}
 
 	/**
 	 * Handle the AJAX request coming from the block editor.
-	 * 
+	 *
 	 * @since 0.8.0
 	 */
 	public function handle_ajax_request() {
@@ -101,20 +111,24 @@ final class SPCL {
 			return;
 		}
 
+		// Check nonce.
+		if ( ! isset( $_POST['_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'spcl-block-editor-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			return;
+		}
+
 		// Check if no post ID.
-		if ( ! isset( $_POST['check_post'] ) || empty( $_POST['check_post'] ) ) {
+		if ( ! isset( $_POST['check_post'] ) || empty( $_POST['check_post'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			return;
 		}
 
 		// Validate links.
-		SPCL::validate_links( $_POST['check_post'] );
+		self::validate_links( $_POST['check_post'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
 		// Get errors.
-
 		// Cache hash.
 		$hash = self::_transient_hash();
 
-		// Get errors from cache
+		// Get errors from cache.
 		$items = get_transient( $hash );
 		if ( ! $items || ! is_array( $items ) ) {
 			return;
@@ -206,7 +220,7 @@ final class SPCL {
 						esc_html__( 'Check for URL %1$s failed with error: %2$s.', 'spcl' ),
 						$link,
 						esc_html( $response->get_error_message() )
-					)
+					),
 				);
 			} else {
 				// Status code.
@@ -220,7 +234,7 @@ final class SPCL {
 							esc_html__( 'Check for URL %1$s failed with status code %2$s.', 'spcl' ),
 							$link,
 							esc_html( $code )
-						)
+						),
 					);
 				}
 			}
