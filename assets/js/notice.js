@@ -25,16 +25,16 @@
 
 				// Fire the AJAX request.
 				var xhr = new XMLHttpRequest();
-        
-                xhr.open( 'POST', ajaxurl, true );
-                xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-                xhr.responseType = 'json';
-                xhr.onreadystatechange = function() {
-                    if ( this.readyState === XMLHttpRequest.DONE && this.status === 200 ) {
-                        if ( xhr.response.length > 0 ) {
+
+				xhr.open( 'POST', ajaxurl, true );
+				xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+				xhr.responseType = 'json';
+				xhr.onreadystatechange = function() {
+					if ( this.readyState === XMLHttpRequest.DONE && this.status === 200 ) {
+						if ( xhr.response.length > 0 ) {
 							// Build string with notices.
 							var noticesString = '';
-                            xhr.response.forEach( function( currentValue ) {
+							xhr.response.forEach( function( currentValue ) {
 								if ( noticesString !== '' ) {
 									noticesString += '<br>';
 								}
@@ -50,10 +50,10 @@
 							) )
 
 							isChecking = false;
-                        }
-                    }
-                }
-                xhr.send( '_nonce=' + postId + '&action=spcl_link_check&check_post=' + postId );
+						}
+					}
+				}
+				xhr.send( '_nonce=' + postId + '&action=spcl_link_check&check_post=' + postId );
 			}
 		} );
 	} );
