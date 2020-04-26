@@ -54,3 +54,12 @@ add_action(
 		'init',
 	)
 );
+
+// Handle AJAX requests from the block editor.
+add_action(
+	'wp_ajax_spcl_link_check',
+	array(
+		'SPCL',
+		'handle_ajax_request',
+	)
+);
