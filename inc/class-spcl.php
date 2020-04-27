@@ -105,7 +105,7 @@ final class SPCL {
 	 *
 	 * @since 0.8.0
 	 */
-	public function handle_ajax_request() {
+	public static function handle_ajax_request() {
 		// Check if user can edit posts.
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
