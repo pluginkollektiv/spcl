@@ -86,7 +86,7 @@ final class SPCL {
 		wp_enqueue_script(
 			'spcl-block-editor-script',
 			plugins_url( 'assets/js/notice.js', dirname( __FILE__ ) ),
-			array( 'wp-core-data' ),
+			array( 'wp-dom-ready', 'wp-data' ),
 			SPCL_VERSION
 		);
 
