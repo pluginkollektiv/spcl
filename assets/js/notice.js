@@ -1,12 +1,12 @@
 ( function() {
 	wp.domReady( function() {
 		var isChecking = false,
-			noticesArray = [],
-			postId = wp.data.select( 'core/editor' ).getCurrentPostId();
+			noticesArray = [];
 
 		// Listen to changes in the editor.
 		var checkLinks = wp.data.subscribe( function() {
-			var isSaving = wp.data.select( 'core/editor' ).isSavingPost();
+			var postId = wp.data.select( 'core/editor' ).getCurrentPostId(),
+				isSaving = wp.data.select( 'core/editor' ).isSavingPost();
 
 			if ( isSaving && ! isChecking ) {
 				isChecking = true;
