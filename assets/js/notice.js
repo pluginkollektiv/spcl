@@ -5,11 +5,11 @@
 
 		// Listen to changes in the editor.
 		var checkLinks = wp.data.subscribe( function() {
-			var postId = wp.data.select( 'core/editor' ).getCurrentPostId(),
-				isSaving = wp.data.select( 'core/editor' ).isSavingPost();
+			var isSaving = wp.data.select( 'core/editor' ).isSavingPost();
 
 			if ( isSaving && ! isChecking ) {
 				isChecking = true;
+				var postId = wp.data.select( 'core/editor' ).getCurrentPostId();
 
 				// Remove old notices if existent.
 				if ( noticesArray.length !== 0 ) {
