@@ -52,6 +52,15 @@ final class SPCL {
 				'admin_notices',
 			)
 		);
+
+		// Add block editor file.
+		add_action(
+			'enqueue_block_editor_assets',
+			array(
+				__CLASS__,
+				'enqueue_block_editor_asset',
+			)
+		);
 	}
 
 	/**
@@ -68,6 +77,68 @@ final class SPCL {
 				'display_errors',
 			)
 		);
+	}
+
+	/**
+	 * Enqueue script for block editor.
+	 */
+	public static function enqueue_block_editor_asset() {
+		wp_enqueue_script(
+			'spcl-block-editor-script',
+			plugins_url( 'assets/js/notice.js', dirname( __FILE__ ) ),
+			array( 'wp-dom-ready', 'wp-data' ),
+			SPCL_VERSION
+		);
+
+		// Add nonce for AJAX request.
+		wp_localize_script(
+			'spcl-block-editor-script',
+			'spclScriptData',
+			array(
+				'nonce' => wp_create_nonce( 'spcl-block-editor-nonce' ),
+			)
+		);
+	}
+
+	/**
+	 * Handle the AJAX request coming from the block editor.
+	 *
+	 * @since 0.8.0
+	 */
+	public static function handle_ajax_request() {
+		// Check if user can edit posts.
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+
+		// Check nonce.
+		if ( ! isset( $_POST['_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), 'spcl-block-editor-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			return;
+		}
+
+		// Check if no post ID.
+		if ( ! isset( $_POST['check_post'] ) || empty( $_POST['check_post'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			return;
+		}
+
+		// Validate links.
+		self::validate_links( $_POST['check_post'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
+		// Get errors.
+		// Cache hash.
+		$hash = self::_transient_hash();
+
+		// Get errors from cache.
+		$items = get_transient( $hash );
+		if ( ! $items || ! is_array( $items ) ) {
+			return;
+		}
+
+		// Kill current cache.
+		delete_transient( $hash );
+
+		// Send JSON to the block editor.
+		wp_send_json( $items );
 	}
 
 	/**
@@ -131,6 +202,12 @@ final class SPCL {
 				continue;
 			}
 
+			$link = sprintf(
+				'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+				esc_url( $url ),
+				esc_url( $url )
+			);
+
 			/* Ping */
 			$response = wp_safe_remote_head( $url );
 			if ( is_wp_error( $response ) ) {
@@ -138,6 +215,12 @@ final class SPCL {
 				$found[] = array(
 					'url'   => $url,
 					'error' => $response->get_error_message(),
+					'error_text' => sprintf(
+						/* translators: 1: URL 2: error message */
+						esc_html__( 'Check for URL %1$s failed with error: %2$s.', 'spcl' ),
+						$link,
+						esc_html( $response->get_error_message() )
+					),
 				);
 			} else {
 				// Status code.
@@ -146,6 +229,12 @@ final class SPCL {
 					$found[] = array(
 						'url'   => $url,
 						'code' => $code,
+						'error_text' => sprintf(
+							/* translators: 1: URL 2: HTTP status code */
+							esc_html__( 'Check for URL %1$s failed with status code %2$s.', 'spcl' ),
+							$link,
+							esc_html( $code )
+						),
 					);
 				}
 			}
@@ -192,27 +281,7 @@ final class SPCL {
 		// Output errors.
 		echo '<div class="notice notice-error is-dismissible">';
 		foreach ( $items as $item ) {
-			$link = sprintf(
-				'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
-				esc_url( $item['url'] ),
-				esc_url( $item['url'] )
-			);
-
-			if ( isset( $item['code'] ) ) {
-				$error_text = sprintf(
-					/* translators: 1: URL 2: HTTP status code */
-					esc_html__( 'Check for URL %1$s failed with status code %2$s.', 'spcl' ),
-					$link,
-					esc_html( $item['code'] )
-				);
-			} else {
-				$error_text = sprintf(
-					/* translators: 1: URL 2: error message */
-					esc_html__( 'Check for URL %1$s failed with error: %2$s.', 'spcl' ),
-					$link,
-					esc_html( $item['error'] )
-				);
-			}
+			$error_text = $item['error_text'];
 
 			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<p>' . $error_text . '</p>'; // Everything is escaped properly already.

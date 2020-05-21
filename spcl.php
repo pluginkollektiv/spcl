@@ -33,6 +33,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'SPCL_VERSION', '0.8.0' );
+
 // Backend only.
 if ( ! is_admin() ) {
 	return;
@@ -52,5 +54,14 @@ add_action(
 	array(
 		'SPCL',
 		'init',
+	)
+);
+
+// Handle AJAX requests from the block editor.
+add_action(
+	'wp_ajax_spcl_link_check',
+	array(
+		'SPCL',
+		'handle_ajax_request',
 	)
 );
