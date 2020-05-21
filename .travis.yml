@@ -12,6 +12,7 @@ matrix:
 
 before_script:
   - composer install
+  - npm install
 
 script:
   - composer cs
