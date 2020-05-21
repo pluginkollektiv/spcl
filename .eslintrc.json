@@ -1,0 +1,15 @@
+{
+  "extends": "plugin:@wordpress/eslint-plugin/es5",
+  "rules": {
+    "vars-on-top": "off"
+  },
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "ajaxurl": "readonly",
+    "spclScriptData": "readonly",
+    "wp": "readonly"
+  }
+}

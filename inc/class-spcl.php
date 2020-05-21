@@ -81,11 +81,13 @@ final class SPCL {
 
 	/**
 	 * Enqueue script for block editor.
+	 *
+	 * @since 0.8.0
 	 */
 	public static function enqueue_block_editor_asset() {
 		wp_enqueue_script(
 			'spcl-block-editor-script',
-			plugins_url( 'assets/js/notice.js', dirname( __FILE__ ) ),
+			plugins_url( 'assets/js/notice.min.js', dirname( __FILE__ ) ),
 			array( 'wp-dom-ready', 'wp-data' ),
 			SPCL_VERSION
 		);
@@ -181,7 +183,7 @@ final class SPCL {
 		$found = array();
 		foreach ( $urls as $url ) {
 			// Skip URL if depending on acceptable protocols check.
-			if ( ! in_array( parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols ) ) {
+			if ( ! in_array( parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols, true ) ) {
 				continue;
 			}
 
@@ -216,8 +218,8 @@ final class SPCL {
 					'url'   => $url,
 					'error' => $response->get_error_message(),
 					'error_text' => sprintf(
-						/* translators: 1: URL 2: error message */
-						esc_html__( 'Check for URL %1$s failed with error: %2$s.', 'spcl' ),
+						/* translators: 1: URL 2: error message, ending with a period already */
+						esc_html__( 'Check for URL %1$s failed with error: %2$s', 'spcl' ),
 						$link,
 						esc_html( $response->get_error_message() )
 					),
@@ -225,7 +227,7 @@ final class SPCL {
 			} else {
 				// Status code.
 				$code = (int) wp_remote_retrieve_response_code( $response );
-				if ( $code >= 400 && 405 != $code ) {
+				if ( $code >= 400 && 405 !== $code ) {
 					$found[] = array(
 						'url'   => $url,
 						'code' => $code,
@@ -319,8 +321,8 @@ final class SPCL {
 		// If ext/hash is not present, use sha1() instead.
 		if ( function_exists( 'hash' ) ) {
 			return hash( 'sha256', $value );
-		} else {
-			return sha1( $value );
 		}
+
+		return sha1( $value );
 	}
 }

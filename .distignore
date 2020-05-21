@@ -1,0 +1,18 @@
+# Directories
+/.git
+/.github
+/.wordpress-org
+/node_modules
+/vendor
+
+# Files
+/.distignore
+/.eslintrc.json
+/.gitattributes
+/.gitignore
+/.travis.yml
+/composer.json
+/composer.lock
+/package.json
+/package-lock.json
+/phpcs.xml

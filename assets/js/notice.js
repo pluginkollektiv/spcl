@@ -4,12 +4,12 @@
 			noticesArray = [];
 
 		// Listen to changes in the editor.
-		var checkLinks = wp.data.subscribe( function() {
+		wp.data.subscribe( function() {
 			var isSaving = wp.data.select( 'core/editor' ).isSavingPost();
 
 			if ( isSaving && ! isChecking ) {
-				isChecking = true;
 				var postId = wp.data.select( 'core/editor' ).getCurrentPostId();
+				isChecking = true;
 
 				// Remove old notices if existent.
 				if ( noticesArray.length !== 0 ) {
@@ -34,27 +34,31 @@
 						if ( xhr.response.length > 0 ) {
 							// Build string with notices.
 							var noticesString = '';
-							xhr.response.forEach( function( currentValue ) {
-								if ( noticesString !== '' ) {
-									noticesString += '<br>';
+							xhr.response.forEach(
+								function( currentValue ) {
+									if ( noticesString !== '' ) {
+										noticesString += '<br>';
+									}
+									noticesString += currentValue.error_text;
 								}
-								noticesString += currentValue.error_text;
-							} );
+							);
 
 							// Display notice and add its Promise to the noticesArray.
-							noticesArray.push( wp.data.dispatch( 'core/notices' ).createErrorNotice(
-								noticesString,
-								{
-									__unstableHTML: true,
-								}
-							) )
+							noticesArray.push(
+								wp.data.dispatch( 'core/notices' ).createErrorNotice(
+									noticesString,
+									{
+										__unstableHTML: true,
+									}
+								)
+							);
 
 							isChecking = false;
 						}
 					}
-				}
+				};
 				xhr.send( '_nonce=' + spclScriptData.nonce + '&action=spcl_link_check&check_post=' + postId );
 			}
 		} );
 	} );
-} )();
+}() );
