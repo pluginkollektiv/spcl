@@ -25,11 +25,11 @@
     ],
     "cs": [
       "phpcs --standard=phpcs.xml -s",
-      "npx eslint assets/js/*.js"
+      "npx eslint assets/js/notice.js"
     ],
     "csfix": [
       "phpcbf --standard=phpcs.xml",
-      "npx eslint assets/js/*.js --fix"
+      "npx eslint assets/js/notice.js --fix"
     ]
   }
 }
