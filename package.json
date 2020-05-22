@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@wordpress/eslint-plugin": "^3",
+    "eslint": "^6"
+  }
+}

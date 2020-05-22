@@ -7,7 +7,7 @@
  * Plugin URI:  https://wordpress.org/plugins/spcl/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     0.7.5
+ * Version:     0.8.0
  * Text Domain: spcl
  *
  * @package spcl

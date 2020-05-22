@@ -3,9 +3,9 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
-* Tested up to:      4.9
+* Tested up to:      5.4
 * Requires PHP:      5.2
-* Stable tag:        0.7.5
+* Stable tag:        0.8.0
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ No more publishing of links or images broken by typos or incompletely copy-paste
 
 
 ## Frequently Asked Questions ##
+
 ### Will this plugin automatically correct link URLs on my website? ###
 No, but it will automatically *find* any broken URLs in a post and list them for you, so you can review and correct them.
 
@@ -62,6 +63,9 @@ There is none, no configuration necessary.
 
 
 ## Changelog ##
+
+### 0.8.0 ###
+* Add support for the Gutenberg editor (compatible with the latest WordPress version now)
 
 ### 0.7.5 ###
 * Use a more secure hashing function
