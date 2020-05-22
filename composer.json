@@ -24,12 +24,24 @@
       "minifyjs assets/js/notice.js > assets/js/notice.min.js"
     ],
     "cs": [
-      "phpcs --standard=phpcs.xml -s",
+      "@cs-js",
+      "@cs-php"
+    ],
+    "cs-js": [
       "npx eslint assets/js/notice.js"
     ],
+    "cs-php": [
+      "phpcs --standard=phpcs.xml -s"
+    ],
     "csfix": [
-      "phpcbf --standard=phpcs.xml",
+      "@csfix-js",
+      "@csfix-php"
+    ],
+    "csfix-js": [
       "npx eslint assets/js/notice.js --fix"
+    ],
+    "csfix-php": [
+      "phpcbf --standard=phpcs.xml"
     ]
   }
 }

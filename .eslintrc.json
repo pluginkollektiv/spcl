@@ -4,8 +4,7 @@
     "vars-on-top": "off"
   },
   "env": {
-    "browser": true,
-    "jquery": true
+    "browser": true
   },
   "globals": {
     "ajaxurl": "readonly",
