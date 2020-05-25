@@ -82,7 +82,7 @@ final class SPCL {
 	/**
 	 * Enqueue script for block editor.
 	 *
-	 * @since 0.8.0
+	 * @since 1.0.0
 	 */
 	public static function enqueue_block_editor_asset() {
 		wp_enqueue_script(
@@ -105,7 +105,7 @@ final class SPCL {
 	/**
 	 * Handle the AJAX request coming from the block editor.
 	 *
-	 * @since 0.8.0
+	 * @since 1.0.0
 	 */
 	public static function handle_ajax_request() {
 		// Check if user can edit posts.
