@@ -87,4 +87,5 @@ There is none, no configuration necessary.
 
 
 ## Screenshots ##
-1. Output of faulty links
+1. Output of faulty links in the Gutenberg Editor
+2. Output of faulty links in the Classic Editor
