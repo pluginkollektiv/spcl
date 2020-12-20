@@ -1,14 +1,14 @@
 ( function() {
 	wp.domReady( function() {
-		var isChecking = false,
+		var needsCheck = false,
 			noticesArray = [];
 
 		// Listen to changes in the editor.
 		wp.data.subscribe( function() {
 			if ( wp.data.select( 'core/editor' ).isSavingPost() ) {
-				isChecking = true;
-			} else if ( isChecking ) {
-				isChecking = false;
+				needsCheck = true;
+			} else if ( needsCheck ) {
+				needsCheck = false;
 				var postId = wp.data.select( 'core/editor' ).getCurrentPostId();
 
 				// Remove old notices if existent.
