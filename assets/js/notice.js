@@ -52,8 +52,6 @@
 									}
 								)
 							);
-
-							isChecking = false;
 						}
 					}
 				};
