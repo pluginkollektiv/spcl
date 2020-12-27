@@ -1,15 +1,15 @@
 ( function() {
 	wp.domReady( function() {
-		var isChecking = false,
+		var needsCheck = false,
 			noticesArray = [];
 
 		// Listen to changes in the editor.
 		wp.data.subscribe( function() {
-			var isSaving = wp.data.select( 'core/editor' ).isSavingPost();
-
-			if ( isSaving && ! isChecking ) {
+			if ( wp.data.select( 'core/editor' ).isSavingPost() ) {
+				needsCheck = true;
+			} else if ( needsCheck ) {
+				needsCheck = false;
 				var postId = wp.data.select( 'core/editor' ).getCurrentPostId();
-				isChecking = true;
 
 				// Remove old notices if existent.
 				if ( noticesArray.length !== 0 ) {
@@ -52,8 +52,6 @@
 									}
 								)
 							);
-
-							isChecking = false;
 						}
 					}
 				};
