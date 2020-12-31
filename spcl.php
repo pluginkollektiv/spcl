@@ -7,7 +7,7 @@
  * Plugin URI:  https://wordpress.org/plugins/spcl/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: spcl
  *
  * @package spcl
@@ -33,7 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SPCL_VERSION', '1.0.0' );
+define( 'SPCL_VERSION', '1.0.1' );
 
 // Backend only.
 if ( ! is_admin() ) {
