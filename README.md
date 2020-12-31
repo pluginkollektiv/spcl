@@ -3,9 +3,9 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
-* Tested up to:      5.5
+* Tested up to:      5.6
 * Requires PHP:      5.2
-* Stable tag:        1.0.0
+* Stable tag:        1.0.1
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ There is none, no configuration necessary.
 
 
 ## Changelog ##
+
+### 1.0.1 ###
+* Fix issue that check does work in Gutenberg
 
 ### 1.0.0 ###
 * Add support for the Gutenberg editor (compatible with the latest WordPress version now)
