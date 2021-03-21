@@ -3,7 +3,7 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Tags:              admin, broken, check, links, link checker, maintenance, post, posts, seo
 * Requires at least: 3.7
-* Tested up to:      5.6
+* Tested up to:      5.7
 * Requires PHP:      5.2
 * Stable tag:        1.0.1
 * License:           GPLv2 or later
