@@ -10,7 +10,6 @@
 /.eslintrc.json
 /.gitattributes
 /.gitignore
-/.travis.yml
 /composer.json
 /composer.lock
 /package.json
