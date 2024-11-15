@@ -89,7 +89,8 @@ final class SPCL {
 			'spcl-block-editor-script',
 			plugins_url( 'assets/js/notice.min.js', dirname( __FILE__ ) ),
 			array( 'wp-dom-ready', 'wp-data' ),
-			SPCL_VERSION
+			SPCL_VERSION,
+			array( 'in_footer' => true )
 		);
 
 		// Add nonce for AJAX request.
