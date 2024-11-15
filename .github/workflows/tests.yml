@@ -1,0 +1,25 @@
+name: Test
+on: [ push, pull_request ]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: |
+          composer install --no-interaction
+          npm ci
+      - name: Lint PHP
+        run: composer cs-php
+      - name: Lint JS
+        run: composer cs-js
