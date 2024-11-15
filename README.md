@@ -5,7 +5,7 @@
 * Requires at least: 3.7
 * Tested up to:      6.8
 * Requires PHP:      5.2
-* Stable tag:        1.0.1
+* Stable tag:        1.0.2
 * License:           GPLv2 or later
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,18 +51,22 @@ No, it will just list any broken URLs for you, but it will do so already when yo
 ### Does it matter whether a URL is http or https? ###
 By default the plugin will try to ping both, http and https URLs. If needed, you can change accepted protocols via hook. For example, in order to check only URLs with SSL:
 
-```
-add_filter( 'spcl_acceptable_protocols', 'set_spcl_acceptable_protocols' );
-function set_spcl_acceptable_protocols( $schemes ) {
-	return array( 'https' );
-}
-```
+    add_filter( 'spcl_acceptable_protocols', 'set_spcl_acceptable_protocols' );
+    function set_spcl_acceptable_protocols( $schemes ) {
+        return array( 'https' );
+    }
 
 ### Where’s the settings page? ###
 There is none, no configuration necessary.
 
 
 ## Changelog ##
+
+### 1.0.2 ###
+* Updated build environment
+* Minor code style corrections
+* Include JavaScript in footer
+* Tested up to WordPress 6.8
 
 ### 1.0.1 ###
 * Fix issue that check does work in Gutenberg
