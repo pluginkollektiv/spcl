@@ -23,9 +23,9 @@ final class SPCL {
 	public static function init() {
 		// Skip DOING_X.
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-			 || ( defined( 'DOING_CRON' ) && DOING_CRON )
-			 || ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			 || ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
+			|| ( defined( 'DOING_CRON' ) && DOING_CRON )
+			|| ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			|| ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
 			return;
 		}
 
@@ -215,8 +215,8 @@ final class SPCL {
 			if ( is_wp_error( $response ) ) {
 				// Response code.
 				$found[] = array(
-					'url'   => $url,
-					'error' => $response->get_error_message(),
+					'url'        => $url,
+					'error'      => $response->get_error_message(),
 					'error_text' => sprintf(
 						/* translators: 1: URL 2: error message, ending with a period already */
 						esc_html__( 'Check for URL %1$s failed with error: %2$s', 'spcl' ),
@@ -229,8 +229,8 @@ final class SPCL {
 				$code = (int) wp_remote_retrieve_response_code( $response );
 				if ( $code >= 400 && 405 !== $code ) {
 					$found[] = array(
-						'url'   => $url,
-						'code' => $code,
+						'url'        => $url,
+						'code'       => $code,
 						'error_text' => sprintf(
 							/* translators: 1: URL 2: HTTP status code */
 							esc_html__( 'Check for URL %1$s failed with status code %2$s.', 'spcl' ),
