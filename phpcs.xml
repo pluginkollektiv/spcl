@@ -22,7 +22,10 @@
 
     <!-- WordPress coding standards -->
     <config name="minimum_supported_wp_version" value="3.7" />
-    <rule ref="WordPress"/>
+    <rule ref="WordPress">
+        <!-- PHP 5.2 compatibility does not support __DIR__ constant -->
+        <exclude name="Modernize.FunctionCalls.Dirname.FileConstant" />
+    </rule>
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array" value="spcl" />
