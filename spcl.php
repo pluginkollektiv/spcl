@@ -41,12 +41,7 @@ if ( ! is_admin() ) {
 }
 
 // Include class.
-require_once(
-	sprintf(
-		'%s/inc/class-spcl.php',
-		dirname( __FILE__ )
-	)
-);
+require_once sprintf( '%s/inc/class-spcl.php', dirname( __FILE__ ) );
 
 // Init.
 add_action(
