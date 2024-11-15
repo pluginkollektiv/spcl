@@ -183,12 +183,12 @@ final class SPCL {
 		$found = array();
 		foreach ( $urls as $url ) {
 			// Skip URL if depending on acceptable protocols check.
-			if ( ! in_array( parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols, true ) ) {
+			if ( ! in_array( wp_parse_url( $url, PHP_URL_SCHEME ), $acceptable_protocols, true ) ) {
 				continue;
 			}
 
 			// Fragment check.
-			$hash = parse_url( $url, PHP_URL_FRAGMENT );
+			$hash = wp_parse_url( $url, PHP_URL_FRAGMENT );
 			if ( $hash ) {
 				$url = str_replace( '#' . $hash, '', $url );
 			}
