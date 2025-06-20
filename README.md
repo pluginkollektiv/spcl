@@ -51,10 +51,12 @@ No, it will just list any broken URLs for you, but it will do so already when yo
 ### Does it matter whether a URL is http or https? ###
 By default the plugin will try to ping both, http and https URLs. If needed, you can change accepted protocols via hook. For example, in order to check only URLs with SSL:
 
-    add_filter( 'spcl_acceptable_protocols', 'set_spcl_acceptable_protocols' );
-    function set_spcl_acceptable_protocols( $schemes ) {
-        return array( 'https' );
-    }
+`
+add_filter( 'spcl_acceptable_protocols', 'set_spcl_acceptable_protocols' );
+function set_spcl_acceptable_protocols( $schemes ) {
+    return array( 'https' );
+}
+`
 
 ### Where’s the settings page? ###
 There is none, no configuration necessary.
