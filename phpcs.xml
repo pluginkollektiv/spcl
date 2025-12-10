@@ -28,11 +28,13 @@
     </rule>
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="spcl" />
+            <property name="text_domain" type="array">
+                <element value="spcl"/>
+            </property>
         </properties>
     </rule>
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
     <config name="testVersion" value="5.2-"/>
-    <rule ref="PHPCompatibility"/>
+    <rule ref="PHPCompatibilityWP"/>
 </ruleset>
