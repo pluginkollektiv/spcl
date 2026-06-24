@@ -61,6 +61,9 @@ function set_spcl_acceptable_protocols( $schemes ) {
 ### Where’s the settings page? ###
 There is none, no configuration necessary.
 
+### How can I report security bugs? ###
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/261a0e3c-0f3e-4741-8f99-23fbd6c782ef)
+
 
 ## Changelog ##
 
